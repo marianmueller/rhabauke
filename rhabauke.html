@@ -24,10 +24,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Optional: Wenn die Figur absolut im Container positioniert werden soll */
-            /* top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); */
         }
         
         #rhabauke-image {
@@ -43,9 +39,12 @@
         <img id="rhabauke-image" src="rhabaukeohnedanke.png" alt="Rhabauke">
     </div>
 
+    <audio id="audio-kawoo" src="kawoo.mp3" preload="auto"></audio>
+
     <script>
-        // JavaScript für die Bildwechsel-Funktion
+        // JavaScript für die Bildwechsel-Funktion und Audio
         const rhabaukeImage = document.getElementById('rhabauke-image');
+        const audioKawoo = document.getElementById('audio-kawoo');
         const imageOhneDanke = 'rhabaukeohnedanke.png';
         const imageMitDanke = 'rhabaukemitdanke.png';
         let timeoutId = null; // Speichert die ID des Timers
@@ -53,10 +52,13 @@
         document.addEventListener('keydown', function(event) {
             // Überprüfe, ob die gedrückte Taste "D" ist
             if (event.key === 'd' || event.key === 'D') {
-                // Nur wechseln, wenn das Bild ohne Sprechblase angezeigt wird,
-                // um unnötige Wechsel und Timer-Starts zu vermeiden
+                // Nur wechseln und Sound abspielen, wenn das Bild ohne Sprechblase angezeigt wird
                 if (rhabaukeImage.src.endsWith(imageOhneDanke)) {
                     rhabaukeImage.src = imageMitDanke;
+
+                    // Sound abspielen
+                    audioKawoo.currentTime = 0; // Setzt den Sound auf den Anfang zurück
+                    audioKawoo.play();
 
                     // Lösche einen eventuell bereits laufenden Timer, falls vorhanden
                     if (timeoutId) {
@@ -67,16 +69,12 @@
                     timeoutId = setTimeout(() => {
                         rhabaukeImage.src = imageOhneDanke;
                         timeoutId = null; // Setze die Timer-ID zurück
-                    }, 3000); // 3000 Millisekunden = 5 Sekunden
+                    }, 3000); // 3000 Millisekunden = 3 Sekunden
                 }
             }
         });
 
-        // Beim Loslassen der Taste "D" soll nichts passieren,
-        // da der Timer seinen Lauf nehmen soll, um das Bild zurückzusetzen.
-        // Der vorherige 'keyup'-Listener wurde entfernt, um das Problem zu beheben.
+        // Beim Loslassen der Taste "D" soll nichts passieren (kein Timer-Reset)
     </script>
 </body>
 </html>
-
-
