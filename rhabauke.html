@@ -19,17 +19,22 @@
 
         .container {
             position: relative;
-            width: 2048px;
-            height: 1536px;
+            width: 2048px; /* Breite der Zielauflösung */
+            height: 1536px; /* Höhe der Zielauflösung */
             display: flex;
             justify-content: center;
             align-items: center;
+            /* Optional: Wenn die Figur absolut im Container positioniert werden soll */
+            /* top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); */
         }
         
         #rhabauke-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Stellt sicher, dass das Bild innerhalb des Containers bleibt */
+            width: auto; /* Automatische Breite beibehalten */
+            height: 100%; /* Höhe des Containers ausfüllen */
+            object-fit: contain; /* Bild skalieren, um in den Container zu passen */
+            display: block; /* Entfernt zusätzlichen Platz unter dem Bild */
         }
     </style>
 </head>
@@ -43,28 +48,33 @@
         const rhabaukeImage = document.getElementById('rhabauke-image');
         const imageOhneDanke = 'rhabaukeohnedanke.png';
         const imageMitDanke = 'rhabaukemitdanke.png';
-        let timeoutId;
+        let timeoutId = null; // Speichert die ID des Timers
 
         document.addEventListener('keydown', function(event) {
-            // Überprüfe, ob die gedrückte Taste "D" ist und der Timer nicht bereits läuft
-            if ((event.key === 'd' || event.key === 'D') && rhabaukeImage.src.endsWith(imageOhneDanke)) {
-                // Wechsle zur Grafik mit der Sprechblase
-                rhabaukeImage.src = imageMitDanke;
-
-                // Setze einen Timer, um nach 5 Sekunden zurückzuwechseln
-                timeoutId = setTimeout(() => {
-                    rhabaukeImage.src = imageOhneDanke;
-                }, 5000); // 5000 Millisekunden = 5 Sekunden
-            }
-        });
-
-        document.addEventListener('keyup', function(event) {
-            // Dies ist wichtig, um den Timer zurückzusetzen, wenn die Taste "D" losgelassen wird,
-            // falls man schnell mehrmals drücken will.
+            // Überprüfe, ob die gedrückte Taste "D" ist
             if (event.key === 'd' || event.key === 'D') {
-                clearTimeout(timeoutId);
+                // Nur wechseln, wenn das Bild ohne Sprechblase angezeigt wird,
+                // um unnötige Wechsel und Timer-Starts zu vermeiden
+                if (rhabaukeImage.src.endsWith(imageOhneDanke)) {
+                    rhabaukeImage.src = imageMitDanke;
+
+                    // Lösche einen eventuell bereits laufenden Timer, falls vorhanden
+                    if (timeoutId) {
+                        clearTimeout(timeoutId);
+                    }
+
+                    // Setze einen neuen Timer, um nach 5 Sekunden zurückzuwechseln
+                    timeoutId = setTimeout(() => {
+                        rhabaukeImage.src = imageOhneDanke;
+                        timeoutId = null; // Setze die Timer-ID zurück
+                    }, 5000); // 5000 Millisekunden = 5 Sekunden
+                }
             }
         });
+
+        // Beim Loslassen der Taste "D" soll nichts passieren,
+        // da der Timer seinen Lauf nehmen soll, um das Bild zurückzusetzen.
+        // Der vorherige 'keyup'-Listener wurde entfernt, um das Problem zu beheben.
     </script>
 </body>
 </html>
