@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=2048, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=1536, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Rhabauke</title>
     <style>
         /* CSS für das Design und die Bildpositionierung */
@@ -11,16 +11,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            width: 100vw;
+            height: 100vh; /* Volle Viewport-Höhe */
+            width: 100vw; /* Volle Viewport-Breite */
             margin: 0;
-            overflow: hidden;
+            overflow: hidden; /* Verhindert Scrollbalken */
         }
 
         .container {
             position: relative;
-            width: 2048px; /* Breite der Zielauflösung */
-            height: 1536px; /* Höhe der Zielauflösung */
+            width: 1536px; /* Angepasste Breite */
+            height: 2048px; /* Angepasste Höhe */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -65,17 +65,14 @@
                         clearTimeout(timeoutId);
                     }
 
-                    // Setze einen neuen Timer, um nach 4 Sekunden zurückzuwechseln
+                    // Setze einen neuen Timer, um nach 3 Sekunden zurückzuwechseln
                     timeoutId = setTimeout(() => {
                         rhabaukeImage.src = imageOhneDanke;
                         timeoutId = null; // Setze die Timer-ID zurück
-                    }, 4000); // 4000 Millisekunden = 3 Sekunden
+                    }, 3000); // 3000 Millisekunden = 3 Sekunden
                 }
             }
         });
-
-        // Beim Loslassen der Taste "D" soll nichts passieren (kein Timer-Reset)
     </script>
 </body>
 </html>
-
