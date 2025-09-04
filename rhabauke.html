@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1536, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rhabauke</title>
+    <style>
+        /* CSS für das Design */
+        body {
+            background-color: #f6e8d2; /* Hintergrundfarbe passend zum Bild */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Volle Viewport-Höhe */
+            width: 100vw; /* Volle Viewport-Breite */
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+            overflow: hidden; /* Verhindert Scrollbalken, falls Inhalte überlaufen */
+        }
+
+        .container {
+            text-align: center;
+            /* Optional: Zentrierung des Inhalts, falls nicht schon durch body flexbox */
+        }
+
+        #rhabauke-container {
+            position: relative;
+            display: inline-block;
+            /* Zentrierung des Containers im body, falls body flexbox nicht ausreicht */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute; /* Absolute Positionierung für genaue Kontrolle */
+        }
+
+        #rhabauke-image {
+            width: 600px; /* Bildgröße anpassen, falls gewünscht */
+            height: auto;
+            display: block; /* Entfernt zusätzlichen Platz unter dem Bild */
+        }
+
+        #speech-bubble {
+            position: absolute;
+            top: 5%; /* Positionierung über dem Kopf */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            border: 2px solid #333;
+            border-radius: 20px;
+            padding: 10px 20px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            opacity: 0; /* Standardmäßig ausgeblendet */
+            transition: opacity 0.3s ease-in-out; /* Sanfter Übergang beim Ein-/Ausblenden */
+            white-space: nowrap; /* Verhindert Zeilenumbruch im Text */
+            z-index: 10; /* Stellt sicher, dass die Sprechblase über dem Bild ist */
+        }
+
+        #speech-bubble.visible {
+            opacity: 1; /* Sichtbar, wenn Klasse hinzugefügt wird */
+        }
+
+        /* Ändern der Schriftart und -größe im Quelltext */
+        #speech-text {
+            font-family: "Comic Sans MS", cursive, sans-serif; /* Ändere dies, um die Schriftart zu ändern */
+            font-size: 40px; /* Ändere dies, um die Schriftgröße zu ändern */
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="rhabauke-container">
+            <img src="rhabauke.png" alt="Rhabauke" id="rhabauke-image">
+            <div id="speech-bubble" class="hidden">
+                <span id="speech-text">DANKE!</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript für die Interaktion
+        document.addEventListener('keydown', function(event) {
+            const speechBubble = document.getElementById('speech-bubble');
+            
+            // Überprüfe, ob die gedrückte Taste die Taste "D" ist
+            if (event.key === 'd' || event.key === 'D') {
+                speechBubble.classList.add('visible');
+            }
+        });
+
+        // Sprechblase wieder ausblenden, wenn die Taste losgelassen wird
+        document.addEventListener('keyup', function(event) {
+            const speechBubble = document.getElementById('speech-bubble');
+
+            if (event.key === 'd' || event.key === 'D') {
+                // Eine kleine Verzögerung, damit die Sprechblase kurz sichtbar bleibt
+                setTimeout(() => {
+                    speechBubble.classList.remove('visible');
+                }, 500); // 500 Millisekunden = 0.5 Sekunden
+            }
+        });
+    </script>
+</body>
+</html>
