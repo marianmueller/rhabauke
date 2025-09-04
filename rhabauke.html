@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Rhabauke">
+    
     <title>Rhabauke</title>
     <style>
-        /* CSS für das Design und die Bildpositionierung */
         body {
             background-color: hsl(41, 64%, 86%, 1);
             display: flex;
@@ -19,8 +22,8 @@
 
         .container {
             position: relative;
-            width: 100vw; /* Anpassung an die Viewport-Breite */
-            height: 100vh; /* Anpassung an die Viewport-Höhe */
+            width: 100vw;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,7 +32,7 @@
         #rhabauke-image {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Stellt sicher, dass das Bild in den Container passt */
+            object-fit: contain;
             display: block;
         }
     </style>
@@ -42,7 +45,6 @@
     <audio id="audio-kawoo" src="kawoo.mp3" preload="auto"></audio>
 
     <script>
-        // JavaScript für die Bildwechsel-Funktion und Audio
         const rhabaukeImage = document.getElementById('rhabauke-image');
         const audioKawoo = document.getElementById('audio-kawoo');
         const imageOhneDanke = 'rhabaukeohnedanke.png';
