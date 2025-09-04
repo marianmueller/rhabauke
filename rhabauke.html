@@ -2,35 +2,35 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1536, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <title>Rhabauke</title>
     <style>
         /* CSS für das Design und die Bildpositionierung */
         body {
-            background-color: hsl(41, 64%, 86%, 1); /* HSL mit Alpha 100% = 1 */
+            background-color: hsl(41, 64%, 86%, 1);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Volle Viewport-Höhe */
-            width: 100vw; /* Volle Viewport-Breite */
+            height: 100vh;
+            width: 100vw;
             margin: 0;
-            overflow: hidden; /* Verhindert Scrollbalken */
+            overflow: hidden;
         }
 
         .container {
             position: relative;
-            width: 1536px; /* Angepasste Breite */
-            height: 2048px; /* Angepasste Höhe */
+            width: 100vw; /* Anpassung an die Viewport-Breite */
+            height: 100vh; /* Anpassung an die Viewport-Höhe */
             display: flex;
             justify-content: center;
             align-items: center;
         }
         
         #rhabauke-image {
-            width: auto; /* Automatische Breite beibehalten */
-            height: 100%; /* Höhe des Containers ausfüllen */
-            object-fit: contain; /* Bild skalieren, um in den Container zu passen */
-            display: block; /* Entfernt zusätzlichen Platz unter dem Bild */
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Stellt sicher, dass das Bild in den Container passt */
+            display: block;
         }
     </style>
 </head>
@@ -47,29 +47,23 @@
         const audioKawoo = document.getElementById('audio-kawoo');
         const imageOhneDanke = 'rhabaukeohnedanke.png';
         const imageMitDanke = 'rhabaukemitdanke.png';
-        let timeoutId = null; // Speichert die ID des Timers
+        let timeoutId = null;
 
         document.addEventListener('keydown', function(event) {
-            // Überprüfe, ob die gedrückte Taste "D" ist
             if (event.key === 'd' || event.key === 'D') {
-                // Nur wechseln und Sound abspielen, wenn das Bild ohne Sprechblase angezeigt wird
                 if (rhabaukeImage.src.endsWith(imageOhneDanke)) {
                     rhabaukeImage.src = imageMitDanke;
-
-                    // Sound abspielen
-                    audioKawoo.currentTime = 0; // Setzt den Sound auf den Anfang zurück
+                    audioKawoo.currentTime = 0;
                     audioKawoo.play();
 
-                    // Lösche einen eventuell bereits laufenden Timer, falls vorhanden
                     if (timeoutId) {
                         clearTimeout(timeoutId);
                     }
 
-                    // Setze einen neuen Timer, um nach 3 Sekunden zurückzuwechseln
                     timeoutId = setTimeout(() => {
                         rhabaukeImage.src = imageOhneDanke;
-                        timeoutId = null; // Setze die Timer-ID zurück
-                    }, 3000); // 3000 Millisekunden = 3 Sekunden
+                        timeoutId = null;
+                    }, 3000);
                 }
             }
         });
