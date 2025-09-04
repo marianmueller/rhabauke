@@ -2,10 +2,10 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1536, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=2048, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Rhabauke</title>
     <style>
-        /* CSS für das Design */
+        /* CSS für das Design und die Bildpositionierung */
         body {
             background-color: #f6e8d2;
             display: flex;
@@ -14,84 +14,55 @@
             height: 100vh;
             width: 100vw;
             margin: 0;
-            font-family: Arial, sans-serif;
-            color: #333;
             overflow: hidden;
         }
 
         .container {
-            text-align: center;
-        }
-
-        #rhabauke-container {
             position: relative;
-            display: inline-block;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            position: absolute;
+            width: 2048px;
+            height: 1536px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
+        
         #rhabauke-image {
-            width: 600px;
-            height: auto;
-            display: block;
-        }
-
-        #speech-bubble {
-            position: absolute;
-            top: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: white;
-            border: 2px solid #333;
-            border-radius: 20px;
-            padding: 10px 20px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            white-space: nowrap;
-            z-index: 10;
-        }
-
-        #speech-bubble.visible {
-            opacity: 1;
-        }
-
-        /* Ändern der Schriftart und -größe im Quelltext */
-        #speech-text {
-            font-family: "Comic Sans MS", cursive, sans-serif;
-            font-size: 40px;
-            color: #000;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Stellt sicher, dass das Bild innerhalb des Containers bleibt */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="rhabauke-container">
-            <img src="rhabauke.jpeg" alt="Rhabauke" id="rhabauke-image">
-            <div id="speech-bubble" class="hidden">
-                <span id="speech-text">DANKE!</span>
-            </div>
-        </div>
+        <img id="rhabauke-image" src="rhabaukeohnedanke.png" alt="Rhabauke">
     </div>
 
     <script>
+        // JavaScript für die Bildwechsel-Funktion
+        const rhabaukeImage = document.getElementById('rhabauke-image');
+        const imageOhneDanke = 'rhabaukeohnedanke.png';
+        const imageMitDanke = 'rhabaukemitdanke.png';
+        let timeoutId;
+
         document.addEventListener('keydown', function(event) {
-            const speechBubble = document.getElementById('speech-bubble');
-            
-            if (event.key === 'd' || event.key === 'D') {
-                speechBubble.classList.add('visible');
+            // Überprüfe, ob die gedrückte Taste "D" ist und der Timer nicht bereits läuft
+            if ((event.key === 'd' || event.key === 'D') && rhabaukeImage.src.endsWith(imageOhneDanke)) {
+                // Wechsle zur Grafik mit der Sprechblase
+                rhabaukeImage.src = imageMitDanke;
+
+                // Setze einen Timer, um nach 5 Sekunden zurückzuwechseln
+                timeoutId = setTimeout(() => {
+                    rhabaukeImage.src = imageOhneDanke;
+                }, 5000); // 5000 Millisekunden = 5 Sekunden
             }
         });
 
         document.addEventListener('keyup', function(event) {
-            const speechBubble = document.getElementById('speech-bubble');
-
+            // Dies ist wichtig, um den Timer zurückzusetzen, wenn die Taste "D" losgelassen wird,
+            // falls man schnell mehrmals drücken will.
             if (event.key === 'd' || event.key === 'D') {
-                setTimeout(() => {
-                    speechBubble.classList.remove('visible');
-                }, 500);
+                clearTimeout(timeoutId);
             }
         });
     </script>
