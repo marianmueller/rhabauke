@@ -1,0 +1,11 @@
+<svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .bubble-fill { fill: #F5E8D8; }
+      .bubble-stroke { stroke: black; stroke-width: 3; }
+      .text { font-family: sans-serif; font-weight: bold; font-size: 30px; text-anchor: middle; fill: black; }
+    ]]></style>
+  </defs>
+  <path class="bubble-fill bubble-stroke" d="M 10 30 Q 10 10, 30 10 H 170 Q 190 10, 190 30 V 70 Q 190 90, 170 90 H 80 L 50 98 L 60 70 H 30 Q 10 70, 10 50 Z" />
+  <text x="100" y="58" class="text">DANKE!</text>
+</svg>
